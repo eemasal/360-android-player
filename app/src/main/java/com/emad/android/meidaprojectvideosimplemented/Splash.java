@@ -13,7 +13,7 @@ public class Splash extends AppCompatActivity {
 
     static public ArrayList<Integer> order;
     static final String [] activities = {"MainActivity", "MainActivity2", "MainActivity3" };
-
+    static public int [] videos = {R.raw.first, R.raw.second,R.raw.third};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,14 +30,10 @@ public class Splash extends AppCompatActivity {
         t.schedule(new TimerTask() {
             @Override
             public void run() {
-                Intent intent = null;
-                try {
-                    intent = new Intent(getApplicationContext(), Class.forName("com.emad.android.meidaprojectvideosimplemented."+activities[order.get(0)]));
+
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
                 }
-            }
         },3000);
 
 
