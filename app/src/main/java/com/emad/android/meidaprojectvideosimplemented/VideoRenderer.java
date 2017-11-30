@@ -56,7 +56,7 @@ public class VideoRenderer extends RajawaliCardboardRenderer {
         int ran =r.nextInt(high-low)+low;
 
 
-        mMediaPlayer = MediaPlayer.create(getContext(), videos[ran]);
+        mMediaPlayer = MediaPlayer.create(getContext(), R.raw.first);
 
         mMediaPlayer.setLooping(false);
 
@@ -108,8 +108,13 @@ public class VideoRenderer extends RajawaliCardboardRenderer {
                     @Override
                     public void run() {
                         mainActivity.finish();
-                        Intent intent = new Intent(getContext(),MainActivity2.class);
-                        mainActivity.startActivity(intent);
+                        Intent intent = null;
+                        try {
+                            intent = new Intent(getContext(),Class.forName("com.emad.android.meidaprojectvideosimplemented."+ Splash.activities[Splash.order.get(1)]));
+                            mainActivity.startActivity(intent);
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },5000);
 

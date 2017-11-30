@@ -59,7 +59,7 @@ public class VideoRenderer3 extends RajawaliCardboardRenderer {
         int ran =r.nextInt(high-low)+low;
 
 
-        mMediaPlayer = MediaPlayer.create(getContext(), videos[ran]);
+        mMediaPlayer = MediaPlayer.create(getContext(), R.raw.third);
 
         mMediaPlayer.setLooping(false);
 
