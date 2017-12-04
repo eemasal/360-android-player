@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.SurfaceTexture;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import org.rajawali3d.cardboard.RajawaliCardboardRenderer;
@@ -14,6 +15,9 @@ import org.rajawali3d.materials.textures.Texture;
 import org.rajawali3d.math.Quaternion;
 import org.rajawali3d.primitives.Sphere;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -23,11 +27,8 @@ import java.util.TimerTask;
 public class VideoRenderer extends RajawaliCardboardRenderer {
 
     MainActivity mainActivity;
-    String videopath;
     public static MediaPlayer mMediaPlayer;
     private StreamingTexture mVideoTexture;
-    String nextVideoPath;
-    public static double x;
     public static List<Double> pitchArray;
     public static List<Double>RollArray;
     public static List<Double>YawArray;
@@ -39,6 +40,30 @@ public class VideoRenderer extends RajawaliCardboardRenderer {
         super(activity);
 
         mainActivity = (MainActivity) activity;
+    }
+
+
+    class BackgroundTask extends AsyncTask<String,Void,Void>
+    {
+        private Socket s;
+        private PrintWriter writer;
+
+        @Override
+        protected Void doInBackground(String... voids) {
+
+            try{
+                String message = voids[0];
+                s= new Socket("192.168.178.40",6000);
+                writer = new PrintWriter(s.getOutputStream());
+                writer.write(message);
+                writer.flush();
+                writer.close();
+
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 
 
@@ -135,14 +160,17 @@ public class VideoRenderer extends RajawaliCardboardRenderer {
     protected void onRender(long ellapsedRealtime, double deltaTime) {
         super.onRender(ellapsedRealtime, deltaTime);
         mVideoTexture.update();
-        x=Math.toDegrees(getCurrentCamera().getOrientation().getPitch());
+        double x=Math.toDegrees(getCurrentCamera().getOrientation().getPitch());
         pitchArray.add(x);
         double y = Math.toDegrees(getCurrentCamera().getOrientation().getRoll());
         RollArray.add(y);
         double z = Math.toDegrees(getCurrentCamera().getOrientation().getYaw());
         YawArray.add(z);
-        float x= (float) getRefreshRate();
+        //float x= (float) getRefreshRate();
 //        double x = sphere.getOrientation().getPitch();
+        BackgroundTask b1=new BackgroundTask();
+        String message = x + "  " +y +"  "+ z;
+        b1.execute(message);
 
     }
 
