@@ -1,6 +1,7 @@
 package com.emad.android.meidaprojectvideosimplemented;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.SurfaceTexture;
 import android.media.MediaPlayer;
 import android.util.Log;
@@ -111,6 +112,8 @@ public class VideoRenderer3 extends RajawaliCardboardRenderer {
                     @Override
                     public void run() {
                         mainActivity3.finish();
+                        Intent intent = new Intent(getContext(),MainActivity2.class);
+                        mainActivity3.startActivity(intent);
 
                     }
                 },5000);

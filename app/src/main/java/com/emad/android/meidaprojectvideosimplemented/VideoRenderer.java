@@ -53,7 +53,7 @@ public class VideoRenderer extends RajawaliCardboardRenderer {
 
             try{
                 String message = voids[0];
-                s= new Socket("192.168.178.40",6000);
+                s= new Socket("141.24.109.16",6000);
                 writer = new PrintWriter(s.getOutputStream());
                 writer.write(message);
                 writer.flush();
