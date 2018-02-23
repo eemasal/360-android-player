@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">Meida project(Videos implemented)</string>
+    <string name="app_name">360-Video</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Button</string>
+    <string name="dummy_content">AVT</string>
+    <string name="title_activity_list">ListActivity</string>
+    <string name="title_activity_splash">360-Video</string>
+    <string name="Values">Show Values</string>
 </resources>
